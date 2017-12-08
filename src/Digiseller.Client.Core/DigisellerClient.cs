@@ -9,6 +9,7 @@ using Digiseller.Client.Core.Interfaces;
 using Digiseller.Client.Core.Models.CategoryProducts;
 using Digiseller.Client.Core.Serializers;
 using Digiseller.Client.Core.ViewModels;
+using Digiseller.Client.Core.ViewModels.SellerSells;
 
 namespace Digiseller.Client.Core
 {
@@ -27,9 +28,9 @@ namespace Digiseller.Client.Core
         private const string UrlGetSellerGoods = "https://api.digiseller.ru/api/seller-goods";
         private const string UrlGetProductDiscount = "xml/shop_discount.asp";
         private const string UrlGetGoodstBySearchString = "xml/shop_search.asp";
-        private const string UrlGetTopTwentySale = "xml/shop_last_sales.asp";
         private const string UrlAddToCart = "xml/shop_cart_add.asp";
         private const string UrlUpdateCart = "xml/shop_cart_lst.asp";
+        private const string UrlGetSellerSells = "https://api.digiseller.ru/api/seller-sells";
         #endregion
 
         /// <summary>
@@ -261,7 +262,7 @@ namespace Digiseller.Client.Core
             var request = new Models.Cart.Request.AddRequest(productId, productCount, currency, email, _languages[language], cartUid);
             var response =
                 await GetDigisellerDataAsync(request,
-                    new JsonSerializer<Models.Cart.Request.AddRequest, Models.Cart.Response.AddResponse>(), UrlAddToCart);
+                    new JsonFormSerializer<Models.Cart.Request.AddRequest, Models.Cart.Response.AddResponse>(), UrlAddToCart);
             return new ViewModels.Cart.AddCart(response);
         }
 
@@ -282,8 +283,18 @@ namespace Digiseller.Client.Core
             var request = new Models.Cart.Request.UpdateRequest(cartUid, itemUpdate, productCount, currency.ToString(), _languages[language]);
             var response =
                 await GetDigisellerDataAsync(request,
-                    new JsonSerializer<Models.Cart.Request.UpdateRequest, Models.Cart.Response.UpdateResponse>(), UrlUpdateCart);
+                    new JsonFormSerializer<Models.Cart.Request.UpdateRequest, Models.Cart.Response.UpdateResponse>(), UrlUpdateCart);
             return new ViewModels.Cart.CartUpdate(response);
+        }
+
+        public async Task<Interfaces.SellerSells.ISellerSells> GetSells(List<int> productIds, DateTime start, DateTime finish, int returns, int rowsCount, int page, string sign, bool calculateSign = true)
+        {
+            var request = new Models.SellerSells.SellerSellsRequest(SellerId, productIds, start, finish, returns, rowsCount, page, sign, calculateSign);
+            var response = await GetDigisellerDataAsync(request,
+                new JsonSerializer<Models.SellerSells.SellerSellsRequest, Models.SellerSells.SellerSellsResponse>(),
+                UrlGetSellerSells);
+
+            return new SellerSellViewModel(response);
         }
     }
 }

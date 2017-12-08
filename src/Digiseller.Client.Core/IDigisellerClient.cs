@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Digiseller.Client.Core.Enums;
 
@@ -135,5 +136,20 @@ namespace Digiseller.Client.Core
         /// <param name="language">Language information</param>
         /// <returns></returns>
         Task<Interfaces.Cart.ICartUpdate> UpdateCart(string cartUid, int? itemUpdate = null, int? productCount = null, Currency currency = Currency.RUR, Language language = Language.Russian);
+
+        /// <summary>
+        /// Get seller sells
+        /// </summary>
+        /// <param name="productIds">Product ids</param>
+        /// <param name="start">Sells from</param>
+        /// <param name="finish">Sells to</param>
+        /// <param name="returns">0 - enable returns; 1 - exclude returns; 2 - only returns</param>
+        /// <param name="rowsCount">count of rows per page</param>
+        /// <param name="page">page number</param>
+        /// <param name="sign">Signature (Completed SHA256 or SellerSecret)</param>
+        /// <param name="calculateSign">Calculate signature (if sign == sellersecret)</param>
+        /// <returns></returns>
+        Task<Interfaces.SellerSells.ISellerSells> GetSells(List<int> productIds, DateTime start, DateTime finish,
+            int returns, int rowsCount, int page, string sign, bool calculateSign = true);
     }
 }

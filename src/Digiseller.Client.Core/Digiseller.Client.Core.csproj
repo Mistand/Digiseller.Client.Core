@@ -2,8 +2,8 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <PackageId>Digiseller.Client.Core</PackageId>
-    <PackageVersion>1.0.0</PackageVersion>
-    <Authors>Quat (quat@protonmail.com)</Authors>
+    <PackageVersion>1.0.1</PackageVersion>
+    <Authors>Mistand (techko@protonmail.com)</Authors>
     <Description>
         <![CDATA[Digiseller Client is an object library for convenient work with the Digiseller API for creating your own online stores, developed for .NET Core.
   Methods:
@@ -16,13 +16,18 @@
   - List of recent sales
   - Shopping cart:
     - Adding items to the cart
-    - Updating items in the shopping cart]]>
+    - Updating items in the shopping cart
+  - Get statistics of sells]]>
     </Description>
+    <Summary>
+      <![CDATA[Digiseller Client is an object library for convenient work with the Digiseller API for creating your own online stores, developed for .NET Core.]]>&gt;
+    </Summary>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>First release</PackageReleaseNotes>
-    <Copyright>Copyright 2017 (c) Quat (quat@protonmail.com)</Copyright>
+    <PackageReleaseNotes>Added method for get sell statistics</PackageReleaseNotes>
+    <Copyright>Copyright 2017 (c) Mistand (techko@protonmail.com)</Copyright>
     <PackageTags>digiseller api</PackageTags>
     <PackageLicenseUrl>https://github.com/Mistand/Digiseller.Client.Core/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Mistand/Digiseller.Client.Core</PackageProjectUrl>
     <PackageIconUrl>https://i.imgur.com/5BgUfRb.png</PackageIconUrl>
   </PropertyGroup>
   <ItemGroup>
